@@ -1,9 +1,13 @@
 import subprocess
 
-def test_addition():
-    result = subprocess.run(["./calculator", "2", "+", "3"], capture_output=True, text=True)
-    assert "5" in result.stdout
+def run_test(args, expected):
+    result = subprocess.run(
+        ["../calculator"] + args,
+        capture_output=True,
+        text=True
+    )
+    print("TEST RUN:", " ".join(args))
+    assert expected in result.stdout
 
-def test_multiplication():
-    result = subprocess.run(["./calculator", "4", "*", "5"], capture_output=True, text=True)
-    assert "20" in result.stdout
+run_test(["2", "+", "3"], "5")
+run_test(["10", "-", "4"], "6")
